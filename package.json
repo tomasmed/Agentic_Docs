@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
+    "verify": "node scripts/verify.mjs",
     "preview": "astro preview",
     "check": "astro check && tsc --noEmit && vitest run",
     "typecheck": "tsc --noEmit",

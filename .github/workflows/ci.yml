@@ -27,25 +27,20 @@ jobs:
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Setup pnpm (if Node)
-        if: steps.check-node.outputs.exists == 'true'
-        uses: pnpm/action-setup@v3
-        with:
-          version: latest
-
       - name: Setup Node.js (if Node)
         if: steps.check-node.outputs.exists == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: 'npm'
 
-      - name: Install & Run Node Checks
+      - name: Install Dependencies
         if: steps.check-node.outputs.exists == 'true'
-        run: |
-          pnpm install
-          chmod +x ./scripts/verify.sh
-          ./scripts/verify.sh
+        run: npm ci
+
+      - name: Run Deterministic Verification Gate
+        if: steps.check-node.outputs.exists == 'true'
+        run: npm run verify
 
       # -------------------------------------------------------------
       # C# / .NET

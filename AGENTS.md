@@ -19,7 +19,7 @@ Agents must **never guess commands**. Use the exact CLI invocations below:
 
 | Action | Command (PowerShell) | Command (Bash / POSIX) | Description |
 | :--- | :--- | :--- | :--- |
-| **Full Verify** | `./scripts/verify.ps1` | `./scripts/verify.sh` | **Runs lint + types + tests in one gate.** |
+| **Full Verify** | `npm run verify` | `npm run verify` | **Runs lint + types + tests in one gate.** |
 | **Build** | `npm run build` | `npm run build` | Compiles or bundles the application |
 | **Test All** | `npm test` | `npm test` | Executes the complete test suite |
 | **Test Single** | `npm test -- <path>` | `npm test -- <path>` | Run a specific test file or filter |
@@ -31,7 +31,7 @@ Agents must **never guess commands**. Use the exact CLI invocations below:
 ## 3. Inviolable Guardrails
 
 1. **Verify Before Completion**:
-   * Never declare a task complete or ask for review without running the **Full Verify** command (`./scripts/verify.ps1` or `./scripts/verify.sh`).
+   * Never declare a task complete or ask for review without running the **Full Verify** command (`npm run verify`).
    * If verification fails, inspect the stderr, fix the issue, and rerun until 100% green.
 
 2. **No Hallucinated Dependencies**:
