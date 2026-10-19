@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    
+    /* Default: Archetype A - Creamy Mocha */
+    --mother-color: #1e1e2e;
+    --canvas-bg: #1e1e2e;
+    --surface-card: #28283d;
+    --surface-hover: #313244;
+    --border-subtle: #363a4f;
+    --border-focus: #cba6f7;
+    --text-primary: #cdd6f4;
+    --text-muted: #a6adc8;
+    --accent-primary: #cba6f7; /* Taro Mauve */
+    --accent-secondary: #fab387; /* Peach */
+    --accent-success: #a6e3a1; /* Mint */
+    --accent-highlight: #89dceb; /* Sky */
+  }
+
+  [data-theme="creamy-matcha"] {
+    --mother-color: #1e2326;
+    --canvas-bg: #1e2326;
+    --surface-card: #272e33;
+    --surface-hover: #2e383e;
+    --border-subtle: #374247;
+    --border-focus: #a7c080;
+    --text-primary: #d3c6aa;
+    --text-muted: #859289;
+    --accent-primary: #a7c080; /* Milky Matcha */
+    --accent-secondary: #e67e80; /* Terracotta */
+    --accent-success: #83c092; /* Seafoam */
+    --accent-highlight: #dbbc7f; /* Bamboo Gold */
+  }
+
+  [data-theme="cyberpunk-osl"] {
+    --mother-color: #070a12;
+    --canvas-bg: #070a12;
+    --surface-card: #101626;
+    --surface-hover: #151e33;
+    --border-subtle: #1c2742;
+    --border-focus: #00f0ff;
+    --text-primary: #d8fcff;
+    --text-muted: #7189a5;
+    --accent-primary: #00f0ff; /* Electric Arc Blue */
+    --accent-secondary: #ff007f; /* Neon Magenta */
+    --accent-success: #00ff66; /* Acid Green */
+    --accent-highlight: #fcee0a; /* High-Vis Volt Yellow */
+  }
+
+  body {
+    background-color: var(--canvas-bg);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+/* Keycap tactile button effect */
+.tactile-keycap {
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-bottom: 2px solid var(--border-subtle);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tactile-keycap:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--border-focus);
+  transform: translateY(-1px);
+}
+
+.tactile-keycap:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+/* Cyberpunk OSL Left-Lip Card */
+.osl-card {
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.osl-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent-primary) 12%, transparent), transparent);
+  pointer-events: none;
+}

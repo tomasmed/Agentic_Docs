@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.svelte';
+
+interface Props {
+  title: string;
+  description: string;
+  rawMarkdownUrl?: string;
+}
+
+const { title, description, rawMarkdownUrl } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | Agentic Docs</title>
+    <meta name="description" content={description} />
+    
+    <!-- Agentic discovery links -->
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs Agent Specification" />
+    {rawMarkdownUrl && (
+      <link rel="alternate" type="text/markdown" href={rawMarkdownUrl} title="Raw Agent Markdown" />
+    )}
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen flex flex-col antialiased">
+    <header class="border-b border-[var(--border-subtle)] bg-[var(--canvas-bg)] sticky top-0 z-50 backdrop-blur-md bg-opacity-90">
+      <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3 group">
+          <span class="w-8 h-8 rounded bg-[var(--surface-card)] border border-[var(--border-subtle)] flex items-center justify-center font-mono text-xs font-bold text-[var(--accent-primary)] group-hover:border-[var(--accent-primary)] transition-colors">
+            AD
+          </span>
+          <div class="flex flex-col">
+            <span class="font-mono text-sm font-bold tracking-tight text-[var(--text-primary)]">Agentic Docs</span>
+            <span class="text-[10px] text-[var(--text-muted)] font-mono">opinion & design systems hub</span>
+          </div>
+        </a>
+
+        <div class="flex items-center gap-4">
+          <nav class="hidden sm:flex items-center gap-3 text-xs font-mono">
+            <a href="/docs/visual-aesthetic" class="text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors">
+              Docs
+            </a>
+            <a href="/llms.txt" target="_blank" class="text-[var(--text-muted)] hover:text-[var(--accent-highlight)] transition-colors flex items-center gap-1">
+              /llms.txt ↗
+            </a>
+            <a href="https://tomasmed.dev" target="_blank" class="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors">
+              tomasmed.dev ↗
+            </a>
+          </nav>
+          <ThemeToggle client:load />
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 max-w-6xl mx-auto px-4 py-8 w-full">
+      <slot />
+    </main>
+
+    <footer class="border-t border-[var(--border-subtle)] py-8 text-center text-xs font-mono text-[var(--text-muted)]">
+      <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span>Architected for human reading & autonomous agent ingestion.</span>
+        <div class="flex items-center gap-4">
+          <a href="/llms.txt" class="hover:text-[var(--accent-primary)]">/llms.txt</a>
+          <a href="https://github.com/tomasmed/Agentic_Docs" target="_blank" class="hover:text-[var(--accent-primary)]">GitHub ↗</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

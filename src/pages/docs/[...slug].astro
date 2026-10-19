@@ -1,0 +1,81 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map((entry) => ({
+    params: { slug: entry.id.replace(/\.md$/, '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const rawMarkdownUrl = `/docs/${entry.id.replace(/\.md$/, '')}.md`;
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  rawMarkdownUrl={rawMarkdownUrl}
+>
+  <article class="max-w-4xl mx-auto space-y-8">
+    <!-- Breadcrumb & Metadata Header -->
+    <div class="space-y-4 border-b border-[var(--border-subtle)] pb-6">
+      <div class="flex items-center justify-between flex-wrap gap-2 text-xs font-mono">
+        <div class="flex items-center gap-2 text-[var(--text-muted)]">
+          <a href="/" class="hover:text-[var(--accent-primary)]">home</a>
+          <span>/</span>
+          <span class="text-[var(--accent-secondary)]">{entry.data.category}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <a
+            href={rawMarkdownUrl}
+            target="_blank"
+            class="tactile-keycap px-2.5 py-1 text-[11px] text-[var(--accent-highlight)] hover:border-[var(--accent-highlight)] flex items-center gap-1"
+          >
+            Raw Agent Markdown (.md) ↗
+          </a>
+        </div>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
+        {entry.data.title}
+      </h1>
+      <p class="text-base text-[var(--text-muted)] leading-relaxed">
+        {entry.data.description}
+      </p>
+
+      {entry.data.tags.length > 0 && (
+        <div class="flex items-center gap-1.5 flex-wrap pt-1">
+          {entry.data.tags.map((tag: string) => (
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--text-muted)]">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- Agent Machine Rules Callout (Dual-Persona Bridge) -->
+    {entry.data.agentRulesSummary && (
+      <aside class="osl-card p-5 space-y-3 font-mono text-xs">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-[var(--accent-primary)] font-bold">🤖 [AGENT SYSTEM DIRECTIVE]</span>
+          </div>
+          <span class="text-[10px] text-[var(--text-muted)]">Target: LLM Agents & System Prompts</span>
+        </div>
+        <p class="text-[var(--text-primary)] leading-relaxed font-sans text-sm">
+          {entry.data.agentRulesSummary}
+        </p>
+      </aside>
+    )}
+
+    <!-- Prose Content -->
+    <div class="prose prose-invert max-w-none space-y-6 text-[var(--text-primary)] leading-relaxed font-sans">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

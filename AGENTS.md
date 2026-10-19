@@ -6,12 +6,10 @@
 
 ## 1. Project Status & Technology Stack
 
-* **State**: `[UNINITIALIZED_TEMPLATE | INITIALIZED]`
-* **Ecosystem**: `[e.g., Next.js 15 (TypeScript) | Vue 3 | SvelteKit | .NET 9 (C#) | Python (uv) | Go 1.23]`
-* **Primary Language**: `[TypeScript | C# | Python | Go]`
-* **Package / Build Tool**: `[pnpm / npm / dotnet / uv / go]`
-
-*(If this project is in `UNINITIALIZED_TEMPLATE` status, follow the instructions in `.agents/bootstrap.md` to configure Commit 1).*
+* **State**: `INITIALIZED`
+* **Ecosystem**: `Astro 5 (TypeScript) + Svelte 5 + Tailwind v4`
+* **Primary Language**: `TypeScript`
+* **Package / Build Tool**: `npm`
 
 ---
 
@@ -22,11 +20,11 @@ Agents must **never guess commands**. Use the exact CLI invocations below:
 | Action | Command (PowerShell) | Command (Bash / POSIX) | Description |
 | :--- | :--- | :--- | :--- |
 | **Full Verify** | `./scripts/verify.ps1` | `./scripts/verify.sh` | **Runs lint + types + tests in one gate.** |
-| **Build** | `[BUILD_CMD]` | `[BUILD_CMD]` | Compiles or bundles the application |
-| **Test All** | `[TEST_CMD]` | `[TEST_CMD]` | Executes the complete test suite |
-| **Test Single** | `[TEST_SINGLE_CMD]` | `[TEST_SINGLE_CMD]` | Run a specific test file or filter |
-| **Lint Check** | `[LINT_CMD]` | `[LINT_CMD]` | Checks code style without mutating |
-| **Format / Fix** | `[FIX_CMD]` | `[FIX_CMD]` | Automatically fixes formatting & linter issues |
+| **Build** | `npm run build` | `npm run build` | Compiles or bundles the application |
+| **Test All** | `npm test` | `npm test` | Executes the complete test suite |
+| **Test Single** | `npm test -- <path>` | `npm test -- <path>` | Run a specific test file or filter |
+| **Lint Check** | `npm run lint` | `npm run lint` | Checks code style without mutating |
+| **Format / Fix** | `npm run fix` | `npm run fix` | Automatically fixes formatting & linter issues |
 
 ---
 

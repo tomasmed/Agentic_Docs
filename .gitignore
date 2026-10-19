@@ -23,6 +23,7 @@ node_modules/
 .next/
 .nuxt/
 .svelte-kit/
+.astro/
 dist/
 build/
 out/
