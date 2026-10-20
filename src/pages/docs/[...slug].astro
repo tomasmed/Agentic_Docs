@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PaletteGenerator from '../../components/PaletteGenerator.svelte';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -71,6 +72,11 @@ const rawMarkdownUrl = `/docs/${entry.id.replace(/\.md$/, '')}.md`;
           {entry.data.agentRulesSummary}
         </p>
       </aside>
+    )}
+
+    <!-- Interactive Painter's Palette & TUI Lab -->
+    {entry.data.category === 'design' && (
+      <PaletteGenerator client:load />
     )}
 
     <!-- Prose Content -->

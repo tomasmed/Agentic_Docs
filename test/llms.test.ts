@@ -38,4 +38,17 @@ describe('Agentic Documentation Contract', () => {
     // Ensure the Mother Color principle is declared
     expect(css).toContain('--mother-color');
   });
+
+  it('verifies aesthetic images exist in public/images/aesthetic', () => {
+    const imgDir = path.resolve(__dirname, '../public/images/aesthetic');
+    expect(fs.existsSync(imgDir)).toBe(true);
+    expect(fs.existsSync(path.join(imgDir, 'miniatures-osl.png'))).toBe(true);
+    expect(fs.existsSync(path.join(imgDir, 'neovim-catppuccin.png'))).toBe(true);
+    expect(fs.existsSync(path.join(imgDir, 'pbt-keycaps.png'))).toBe(true);
+  });
+
+  it('verifies PaletteGenerator component exists', () => {
+    const componentPath = path.resolve(__dirname, '../src/components/PaletteGenerator.svelte');
+    expect(fs.existsSync(componentPath)).toBe(true);
+  });
 });

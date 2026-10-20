@@ -1,48 +1,123 @@
 ---
 title: "Visual Aesthetic & Interface Design Reference"
-description: "A guide to capturing atmosphere, materiality, and cohesive vibe across Terminal User Interfaces (TUIs) and Web UIs."
+description: "A master guide to capturing atmosphere, materiality, and cohesive vibe across Terminal User Interfaces (TUIs) and Web UIs."
 category: "design"
-tags: ["ui", "tui", "aesthetic", "color-theory", "miniature-painting", "design-tokens"]
+tags: ["ui", "tui", "aesthetic", "color-theory", "miniature-painting", "lipgloss", "design-tokens"]
 publishedDate: "2026-10-19"
-agentRulesSummary: "1. Never use pure #000000 or #FFFFFF; establish an underlying Mother Color (5-15% tint in all neutrals). 2. Follow 70% Shadow, 20% Midtone, 10% Focal Specular. 3. Glaze with subtle value steps and breathing room instead of 4-sided wireframe borders. 4. NMM edge contrast: brighter top/left catch-light, darker recessed bottom. 5. Warm hues advance, cool hues recede."
+agentRulesSummary: "1. Never use pure #000000 or #FFFFFF; establish an underlying Mother Color (5-15% tint in all neutrals). 2. Follow 70% Shadow, 20% Midtone, 10% Focal Specular. 3. Glaze with subtle value steps (Abyss -> Surface -> MutedBorder -> Specular) instead of 4-sided wireframe borders. 4. NMM directional edge contrast: brighter top/left catch-light, darker recessed bottom. 5. Warm hues advance, cool hues recede. 6. Fake OSL in TUIs by tinting adjacent character cells."
 ---
 
-> A guide to capturing atmosphere, materiality, and cohesive "vibe" across Terminal User Interfaces (TUIs) and Web UIs.
+> A field guide to capturing atmosphere, materiality, and tactile "vibe" across Terminal User Interfaces (TUIs) and modern Web UIs.
+
+---
 
 ## 1. Core Philosophy: The Screen as a Painted Miniature
 
-Most functional interfaces fail aesthetically not because they lack features, but because they treat design as an engineering checklist ("put a box here, make this text green, make that border white"). When every element is treated with raw, unmixed colors on a stark background, the result feels flat, noisy, and sterile.
+Most functional interfaces fail aesthetically not because they lack features, but because they treat design as an engineering checklist (*"put a box here, make this text green, make that border white"*). When every element is treated with raw, unmixed ANSI or hex colors (`#0000FF` blue, `#FF0000` red, `#00FF00` green) on a stark pitch-black background, the result feels flat, noisy, and clinical. There is no shared atmosphere.
 
-To build interfaces with a distinct, memorable vibe, approach the digital viewport the same way master miniature painters (such as Sergio Calvo or Golden Demon winners) approach a 32mm figure primed in matte black. Great painters do not rely on real metallic pigments or tiny LEDs to make armor gleam or plasma coils glow; they create the *illusion* of materiality, atmosphere, and light through strict control of value, color temperature, and contrast.
+To build interfaces with a distinct, memorable vibe, approach the digital viewport the same way master miniature painters (such as Sergio Calvo or Golden Demon champions) approach a 32mm figure primed in matte black. Great painters do not rely on real metallic pigments or tiny LEDs to make armor gleam or plasma coils glow; they create the **illusion of materiality, atmosphere, and light** through strict control of value, color temperature, and contrast.
+
+<div class="my-6 rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-card)]">
+  <img
+    src="/images/aesthetic/miniatures-osl.png"
+    alt="Three cyberpunk miniatures painted with directional Object Source Lighting"
+    class="w-full object-cover max-h-[420px]"
+  />
+  <div class="p-4 text-xs font-mono text-[var(--text-muted)] border-t border-[var(--border-subtle)] space-y-1">
+    <div class="font-bold text-[var(--accent-primary)]">// Figure 1: Directional Object Source Lighting (OSL) in Miniature Painting</div>
+    <p class="font-sans text-[11px] leading-relaxed">
+      Notice how light only radiates because 75% of the figures stay in deep shadow. On the left, hyper-saturated crimson up-lighting bathes the calves and floor grating. In the center, dual cyan and acid-green lighting catches the outer edges of the trenchcoat while the deep recesses recede into damp charcoal. On the right, warm magenta and gold zenithal lighting glazes the tactical armor folds.
+    </p>
+  </div>
+</div>
 
 ---
 
 ## 2. The Five Artistic Pillars of Cohesive UI
 
 ### I. The "Mother Color" (Universal Shadow & Atmosphere)
-In miniature painting, beginners shade by mixing pure black into their base color, which deadens the palette and makes surfaces look muddy. Master painters mix a single "Mother Color"—often a deep indigo, dioxazine purple, mossy slate, or burnt umber—into *every* shadow and neutral across the entire piece. Even if a cloak is crimson and armor is gold, their deepest recesses share the same atmospheric undertone.
-* **In Digital Interfaces:** Pure void black (`#000000`), pure sterile white (`#FFFFFF`), and untinted neutral grays (`#333333`, `#888888`) rarely exist in cohesive designs.
-* **Application:** Establish a shared atmospheric tint for the entire neutral ramp. Every background canvas, elevated card, inactive border, and muted metadata label should carry 5–15% of that underlying temperature (e.g., warm roasted espresso, deep velvet plum, damp forest slate, or rain-slicked midnight petrol). This shared undertone glues disparate UI components into a single believable world.
+In miniature painting, beginners shade by mixing pure black into their base color, which deadens the palette and turns surfaces muddy. Master painters mix a single **"Mother Color"**—often a deep indigo, dioxazine purple, mossy slate, or burnt umber—into *every* shadow and neutral across the entire piece. Even if a cloak is crimson and armor is gold, their deepest recesses share the same atmospheric undertone.
+
+#### In Digital UI & TUIs
+* **The Fatal Mistake:** Pure void black (`#000000`), pure sterile white (`#FFFFFF`), and untinted neutral grays (`#333333`, `#888888`) rarely exist in cohesive designs.
+* **The Charm.land Trick:** Charm’s famous "pastel bubblegum" vibe works because every color shares a high-value, slightly warm/magenta undertone, and their dark backgrounds aren't pure void black—they are deep, warm plum-charcoals (`#1a1625` or `#221f2e`).
+* **How to Apply It:** Tint your entire neutral scale toward a single temperature:
+  * **Cyberpunk / Arcane Vibe:** Tint all grays, borders, and muted text with 5–10% violet or indigo (`#2A2438`, `#5C5470`).
+  * **Industrial / Grimdark Vibe:** Tint all neutrals toward warm slate or desaturated olive/ochre (`#262925`, `#5A6058`).
+
+---
 
 ### II. The 70 / 20 / 10 Value Hierarchy (Why Things Pop)
 The #1 rule of Object Source Lighting (OSL) in miniature painting is simple: **nothing can glow unless the surrounding environment is painted darker than normal.** If an entire model is painted at 85% brightness, a 100% bright magic orb has no contrast range left to create the illusion of emitted light.
-* **70% Shadow (The Canvas & Recesses):** Background canvases, structural dividers, inactive panels, and secondary metadata live in low-value, desaturated tones. They should recede quietly.
-* **20% Midtone (The Readable Basecoat):** Primary typography, active container surfaces, and standard icons live in comfortable, readable mid-to-high values—always slightly softened from pure white so they don't glare.
-* **10% Focal Specular (The Glow / The Pop):** Reserve maximum saturation and peak brightness for *one* primary focal point or active state at a time (e.g., the focused panel, the selected calendar day, the active cursor line, or the primary action badge). When everything shouts at 90% saturation, competing light sources cancel each other out.
 
-### III. Glazing Over Wireframes (Eliminating "Grid Fatigue")
+If every panel border, header, and status text in your app is bright white or saturated neon, nothing glows. Your UI looks like a miniature painted entirely with flat basecoats under harsh fluorescent kitchen lights.
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│  70% SHADOW (The Recesses)                                             │
+│  Canvases, inactive borders, secondary metadata (30–40% brightness)    │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │  20% MIDTONE (The Basecoat)                                      │  │
+│  │  Readable copy, active container surfaces (75–85% soft off-white)│  │
+│  │  ┌────────────────────────────────────────────────────────────┐  │  │
+│  │  │ 10% FOCAL OSL (The Glow)                                   │  │  │
+│  │  │ Reserve hyper-saturated accent for ONE element at a time!  │  │  │
+│  │  └────────────────────────────────────────────────────────────┘  │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Environmental Spill (Bleeding Light)
+* **On the Web:** If you have a glowing neon button, don't give it a generic black drop-shadow (`rgba(0,0,0,0.5)`). Give it a colored atmospheric glow (`box-shadow: 0 0 20px rgba(255, 105, 180, 0.35)`) and tint the border of the card right next to it slightly pink.
+* **In Lip Gloss (TUI):** You don't have CSS blur in a terminal, so you fake OSL with adjacent cell stepped gradients. If an active modal has a bright `#FF75B5` pink border, tint the background of the modal's title bar a deep, dark wine (`#3D1E30`) so the "light" from the border feels like it is illuminating the interior surface.
+
+---
+
+### III. Glazing Over Wireframes (Bridging Values)
 Early or unpolished UIs often rely on drawing 4-sided borders around every single table cell, button, header pill, and panel. In dense interfaces—like terminal panes or monthly calendar grids—this creates an exhausting "Excel spreadsheet cage."
-* **Value Stepping (Glazing):** Painters build smooth volume by layering thin, translucent glazes rather than drawing harsh black outlines around muscles or cloth folds. In UI, separate zones and grid tiles using subtle shifts in surface brightness (stepping 3–6% lighter than the canvas) paired with deliberate breathing room (margins and grid gaps) instead of wireframes.
-* **Muted Structure:** When borders are used, they should sit barely one value step above the surface they enclose, acting as a whisper of structure rather than a bright fence.
 
-### IV. Non-Metallic Metal (NMM) & Micro-Contrast
+Harsh visual jumps create visual fatigue. When a bright `#FFFFFF` box sits directly on a `#000000` background with a `#FFFFFF` border, it looks jarring—like an unblended basecoat.
+
+#### Bridge Your Values with a 4-Step Glaze Ramp
+Create a 4-step "glaze" ramp in your theme struct for every semantic color:
+1. **Abyss (`#16161E`):** Background canvas & recessed floor.
+2. **Surface (`#1F2335`):** Elevated panel fill or subtle zebra row (+4–6% brightness step).
+3. **MutedBorder (`#3B4261`):** Unfocused structure—acting as a whisper rather than a bright fence.
+4. **Specular (`#BB9AF7` or `#FF75B5`):** Active focus, highlight text, and peak focal glow.
+
+---
+
+### IV. Non-Metallic Metal (NMM) & Directional Micro-Contrast
 Non-Metallic Metal tricks the human eye into seeing gleaming steel or polished gold using flat matte paint. It works through **directional edge contrast**: placing a crisp, bright catch-light along the top edge where overhead light hits, right next to a deep shadow underneath.
-* **In Digital Interfaces:** Flat rectangles feel lifeless when lit uniformly on all four sides.
-* **Application:** Give cards, modals, and active tiles a sense of physical weight and overhead "zenithal" lighting by differentiating their edges. A brighter top or left catch-light paired with a darker, recessed bottom edge immediately makes a flat UI element feel like forged metal, beveled glass, or sculpted plastic.
+
+Digital screens are flat rectangles, and terminals are even flatter character grids. To make components feel tactile, crisp, and "expensive" (like polished metal or beveled glass rather than muddy plastic), you need edge speculars:
+
+* **On the Web:** Instead of a uniform `1px solid #333` border around a card, give the top border a crisp specular highlight (`border-top: 1px solid rgba(255,255,255,0.22)`) while keeping the side and bottom borders dark (`rgba(255,255,255,0.05)`). It immediately simulates overhead zenithal lighting hitting a 3D bevel.
+* **In Lip Gloss (TUI):** You can style individual border sides in Lip Gloss! Try giving an active card or modal a brighter top/left border (`BorderTopForeground`, `BorderLeftForeground`) and a darker, shadowed bottom/right border (`BorderBottomForeground`, `BorderRightForeground`). That 1-cell shift in value tricks the human eye into seeing physical depth.
+
+---
 
 ### V. Warm vs. Cool Temperature Tension
-Contrast isn't just dark versus light; it is **warm versus cool**. Warm hues (bubblegum pink, peach, honey gold, coral, amber) visually advance toward the human eye. Cool hues (slate, indigo, pine, teal, petrol blue) visually recede into the background.
-* **Application:** Pair a cool, receding structural canvas with warm, advancing focal accents (the secret behind Charm's signature pastel bubblegum pink on deep terminal charcoal), or pair a warm, earthy canvas with icy, refreshing highlights. Never let warm and cool accents fight randomly without assigned roles.
+Most disappointing UIs are monochromatic or accidentally clash because they don't pair warm and cool roles deliberately. Contrast isn't just dark versus light; it is **warm versus cool**:
+
+* **Cool Receding Canvas + Warm Advancing Focus:** This is why Charm’s aesthetic hits so hard. A terminal naturally feels cool, technical, and dark (deep indigo/slate background). When you drop warm pastel bubblegum pink (`#F25D94`), peach (`#FF9E64`), or creamy taro (`#CBA6F7`) onto that cool canvas, the warm elements physically pop forward toward the user.
+* **The Rule of Opposites:**
+  * **Cool Canvas (slate, deep navy, cyber-violet):** Make your active cursor, primary badges, and highlights warm (pastel coral, gold, bubblegum magenta).
+  * **Warm Canvas (espresso, warm charcoal, gruvbox-style earthy darks):** Make your active highlights icy cool (mint green, electric cyan, frost blue).
+
+<div class="my-6 rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-card)]">
+  <img
+    src="/images/aesthetic/neovim-catppuccin.png"
+    alt="Neovim editor with pastel Catppuccin syntax on dark plum canvas"
+    class="w-full object-cover max-h-[420px]"
+  />
+  <div class="p-4 text-xs font-mono text-[var(--text-muted)] border-t border-[var(--border-subtle)] space-y-1">
+    <div class="font-bold text-[var(--accent-primary)]">// Figure 2: Cool Receding Canvas with Warm Advancing Accents</div>
+    <p class="font-sans text-[11px] leading-relaxed">
+      Notice how the background canvas is not black, but a deep indigo-charcoal undertone. The primary code is softened off-white, while warm peach, sky cyan, and mint tags pop forward without eye fatigue. Note the tactile keycap statusline pill at the bottom (<code class="text-[var(--accent-primary)]">NORMAL master package.ts</code>).
+    </p>
+  </div>
+</div>
 
 ---
 
@@ -52,10 +127,37 @@ When designing a product, commit early to the physical "materiality" of the inte
 
 ### Archetype A: "Super Creamy" (Matte PBT Keycaps & Unix Ricing)
 Inspired by custom mechanical keyboards (thick matte PBT keycaps like GMK Taro or Osume Matcha), lo-fi stationery, and curated Unix desktop "rices" (Catppuccin, Rosé Pine, Everforest, Kanagawa).
+
 * **The Surface Physics:** Ultra-matte finish. Zero outer neon glow or blurry drop-shadows. It should feel like physical dye injected into soft-touch plastic or ink on heavy parchment.
 * **The "Ice Yellow" Highlight Rule:** Miniature painters avoid chalky highlights by mixing warm ivory, pale sand, or ice yellow into their highlights instead of pure white. In a Creamy UI, even the brightest text is actually oat milk, almond, lavender milk, or warm parchment.
 * **Compressed Value Range:** Raise the dark floor from pitch black into cozy espresso, moss, or plum, and pull the white ceiling down into cream. This eliminates eye strain during long sessions.
-* **Double-Shot Keycap Contrast:** Instead of floating bright colored text on a dark background, style active tabs, status badges, and pills like physical keycaps: **solid pastel fills with dark espresso/canvas text molded inside them**, often finished with a subtle, slightly darker bottom lip for tactile depth.
+* **Double-Shot Keycap Contrast:** Instead of floating bright colored text on a dark background, style active tabs, status badges, and pills like physical keycaps: **solid pastel fills with dark espresso/canvas text molded inside them**, finished with a subtle, slightly darker bottom lip for tactile depth.
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <div class="rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-card)]">
+    <img
+      src="/images/aesthetic/pbt-keycaps.png"
+      alt="Custom mechanical keyboard with thick matte PBT keycaps in pastel lavender and blush"
+      class="w-full object-cover h-[240px]"
+    />
+    <div class="p-3 text-xs font-mono text-[var(--text-muted)] border-t border-[var(--border-subtle)]">
+      <div class="font-bold text-[var(--accent-primary)]">// Figure 3: Physical Matte PBT Keycaps</div>
+      <p class="font-sans text-[11px] mt-1">Soft lavender, blush pink, and almond cream. Physical dye, zero shiny gloss.</p>
+    </div>
+  </div>
+
+  <div class="rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-card)]">
+    <img
+      src="/images/aesthetic/creamy-desktop-rice.png"
+      alt="Creamy forest desktop rice with VS Code and htop tactile tabs"
+      class="w-full object-cover h-[240px]"
+    />
+    <div class="p-3 text-xs font-mono text-[var(--text-muted)] border-t border-[var(--border-subtle)]">
+      <div class="font-bold text-[var(--accent-primary)]">// Figure 4: Creamy Desktop Rice in Practice</div>
+      <p class="font-sans text-[11px] mt-1">Warm dark slate canvas, cream parchment text, and keycap function pills in htop.</p>
+    </div>
+  </div>
+</div>
 
 #### The Four Creamy Palettes
 | Variety | Vibe & Inspiration | Canvas (Mother Color) | Surface Tiles | Primary Text (Cream) | Signature Keycap Accents |
@@ -69,6 +171,21 @@ Inspired by custom mechanical keyboards (thick matte PBT keycaps like GMK Taro o
 
 ### Archetype B: "Cyberpunk OSL" (Fluorescent Light-Spill & Tactical HUDs)
 Inspired by fluorescent miniature Object Source Lighting, rainy Neo-Tokyo alleyways (Tokyo Night), and high-contrast tactical visors (*Cyberpunk 2077* HUD, Outrun synth-grids).
+
+<div class="my-6 rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-card)]">
+  <img
+    src="/images/aesthetic/outrun-synthgrid.png"
+    alt="Outrun synthwave wireframe mountain desktop rice with neon HUD windows"
+    class="w-full object-cover max-h-[360px]"
+  />
+  <div class="p-4 text-xs font-mono text-[var(--text-muted)] border-t border-[var(--border-subtle)] space-y-1">
+    <div class="font-bold text-[var(--accent-primary)]">// Figure 5: Cyberpunk OSL & Tactical Translucency</div>
+    <p class="font-sans text-[11px] leading-relaxed">
+      Wet asphalt reflecting neon in the dark. Deep purple-black sky background with vibrant orange/magenta wireframes. Translucent dark terminals let glowing telemetry data cut through with razor-sharp readability.
+    </p>
+  </div>
+</div>
+
 * **The Surface Physics:** Wet asphalt reflecting neon in the dark. 85% of the screen stays in deep, cold shadow so the remaining 15% can genuinely radiate light. Geometry is crisp, brutalist, and intentional—sharp corners, chamfered edges, or asymmetric single-side tactical bars rather than soft bubbles.
 * **The 3-Layer Fluorescent OSL Rule:** Pure fluorescent paint looks dull if painted directly over black; painters always lay down a pure Titanium White core first, then glaze neon around the edges so it spills onto neighboring armor. In UI, every glowing focal element uses three layers:
   1. **White-Hot Core:** The active text or icon is nearly white, tinted with just a hint of the neon hue (`#D8FCFF` or `#FFE6FA`) for razor-sharp readability.
@@ -86,8 +203,6 @@ Inspired by fluorescent miniature Object Source Lighting, rainy Neo-Tokyo alleyw
 ---
 
 ## 4. Applied Critique: Lessons from Real Interfaces
-
-To see how these principles solve real layout problems, consider common pitfalls found in dense apps (such as a multi-member family calendar or a multi-pane terminal dashboard):
 
 ### 1. Avoiding "Pill Traffic Jams" in Headers
 When an interface stacks multiple rows of utility controls—weather widgets, workspace switchers, mode toggles, user profiles, view tabs, and category filters—giving every single control a bordered pill container creates severe visual clutter.
