@@ -12,6 +12,7 @@ All operational instructions, guardrails, and commands are maintained in the can
   - Follow the **70% Shadow / 20% Midtone / 10% Focal Specular** value hierarchy.
   - Layer subtle surface glazes instead of drawing harsh 4-sided wireframe borders.
 - **Islands Architecture**: Keep static pages zero-JS by default. Use Svelte 5 (`.svelte` with runes) only for interactive widgets (theme toggles, palette pickers, TUI simulators).
+- **Git Branch Protocol**: NEVER push directly to `master`. Always work on a feature branch (`feat/<name>` or `fix/<name>`) and open a Pull Request for human review.
 
 ## Deterministic CLI Reference
 - **Full Verification Gate**: `npm run verify` (Executes Astro check, TypeScript validation, Vitest suite, and build in one gate)
