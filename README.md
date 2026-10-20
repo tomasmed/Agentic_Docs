@@ -1,42 +1,128 @@
-# 🤖 Polyglot Agentic Git Template
+# 🤖 Agentic Docs
 
-A high-velocity, low-overhead repository template designed for the **Agentic SDLC** and solo/hobbyist developers. 
+> The single source of truth for architectural opinions, tactile UI design patterns, and engineering principles — built for autonomous AI agents to ingest and human engineers to explore.
 
-Built to support **Next.js, Vue 3, SvelteKit, C# (.NET), Python (uv), and Go** with zero initial clutter.
-
----
-
-## 🌟 Core Concepts
-
-1. **"Harness Over Model"**: The repository acts as the deterministic control harness for AI agents (Cursor, Claude Code, GitHub Copilot, Aider, Antigravity).
-2. **Universal Contract (`AGENTS.md`)**: A single source of truth for build commands, test recipes, and inviolable guardrails stewarded under the Linux Foundation / Agentic AI Foundation standard.
-3. **Spec-Driven Development (`specs/`)**: Eliminates "vibe-coding" drift by decoupling **Intent** (`spec.md`) from **Plan** (`plan.md`) and **Execution** (`tasks.md`).
-4. **Deterministic Gate (`scripts/verify.*`)**: A single compound command (`lint + typecheck + test`) that agents must run before declaring work complete.
-5. **Architectural Decision Records (`docs/adr/`)**: In-repo MADR records preventing AI from violating past architectural choices or hallucinating external dependencies.
-6. **PR Review Agent Contract (`.agents/pr-reviewer.md`)**: Specific guidelines for automated code reviews focused on spec conformance, test integrity, and security (without linter nitpicking).
+[![Deterministic Verification](https://github.com/tomasmed/Agentic_Docs/actions/workflows/ci.yml/badge.svg)](https://github.com/tomasmed/Agentic_Docs/actions)
+[![Astro 5](https://img.shields.io/badge/Astro-5.4-BC52EE.svg?logo=astro)](https://astro.build)
+[![Svelte 5](https://img.shields.io/badge/Svelte-5-FF3E00.svg?logo=svelte)](https://svelte.dev)
+[![Tailwind v4](https://img.shields.io/badge/Tailwind-v4-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com)
 
 ---
 
-## 🚀 Quick Start: The "Commit 1" Bootstrap Ritual
+## 🌟 The Philosophy: Dual-Persona Documentation
 
-When you create a new repository from this template, your first action is to specialize it for your target stack.
+Standard engineering documentation fails in the agentic era for two reasons:
+1. **Client-Side Rendering (CSR) breaks agents**: Heavy SPAs deliver empty `div` shells that simple HTTP scrapers cannot read without running full headless browser instances.
+2. **Essays vs. Machine Actionability**: Humans want rich narrative metaphors, visual diagrams, and aesthetic depth; LLM agents need concise negative constraints, exact CSS variables, and copyable prompt directives without burning 50,000 tokens of context.
 
-### Option A: Let an AI Agent Initialize It (Recommended)
-Prompt your agent in the new repository:
-> *"Initialize this project for **Next.js 15 (TypeScript, Tailwind)** using the bootstrap protocol in `.agents/bootstrap.md`."*
-*(Replace with Vue, Svelte, .NET, Python, or Go as desired).*
+**Agentic Docs solves this with a Dual-Serving Pipeline:**
 
-The agent will:
-1. Update `AGENTS.md` with your stack's exact build/test/lint commands.
-2. Initialize `docs/adr/0002-technology-stack.md`.
-3. Scaffold baseline files and verify them with `./scripts/verify.ps1`.
-4. Stage and commit: `feat(init): bootstrap project with [Stack] architecture and agent harness`.
-
-### Option B: Run the Bootstrap Helper Manually
-```powershell
-# In PowerShell:
-./scripts/bootstrap.ps1 -Stack nextjs   # or vue, svelte, dotnet, python, go
 ```
+                                 GET /docs/visual-aesthetic
+                                             │
+                       ┌─────────────────────┴─────────────────────┐
+                       ▼                                           ▼
+            Browser (Accept: text/html)              Agent (Accept: text/markdown or .md)
+      ┌───────────────────────────────────┐       ┌───────────────────────────────────────┐
+      │         Interactive Reader        │       │           Pristine Markdown           │
+      │ • High-aesthetic typography       │       │ • Frontmatter-preserved agent rules   │
+      │ • Switchable Creamy / OSL palettes│       │ • Zero HTML tags or hydration scripts │
+      │ • Interactive Svelte 5 islands    │       │ • Sub-50ms static edge response       │
+      │ • One-click "Copy Prompt" card    │       │ • Indexed automatically in /llms.txt  │
+      └───────────────────────────────────┘       └───────────────────────────────────────┘
+```
+
+---
+
+## 🎨 Foundational Content: Visual Aesthetic Reference
+
+The founding document ([src/content/docs/visual-aesthetic.md](./src/content/docs/visual-aesthetic.md)) treats digital interface design the same way master miniature painters treat a 32mm miniature primed in matte black:
+
+* **The "Mother Color"**: Every background, elevated card, and inactive border carries a 5–15% atmospheric undertone (warm espresso, moss slate, or midnight petrol). Pure `#000000` and `#ffffff` are strictly forbidden.
+* **The 70 / 20 / 10 Value Hierarchy**: 70% dark/receding canvas, 20% readable midtones/containers, and 10% peak focal specular/accents.
+* **Glazing Over Wireframes**: Separating containers through 3–6% subtle surface value steps and intentional breathing room rather than harsh 4-sided wireframe borders.
+* **Two Signature Archetypes**:
+  * **Archetype A: "Super Creamy"**: Matte PBT keycaps, lo-fi stationery, and Unix desktop rices (Mocha, Matcha, Latte, Oat).
+  * **Archetype B: "Cyberpunk OSL"**: Wet asphalt reflecting fluorescent light, 3-layer light spill, and tactical HUDs (Over-Volt Blue, Yakuza Purple, Red Dragon, Neon Green).
+
+---
+
+## ⚡ Quick Start & Development
+
+### Prerequisites
+* **Node.js**: v22+ (tested on Node v24)
+* **npm**: v10+
+
+### Installation & Commands
+```bash
+# Clone the repository
+git clone https://github.com/tomasmed/Agentic_Docs.git
+cd Agentic_Docs
+
+# Install dependencies
+npm install
+
+# Start local development server (http://localhost:4321)
+npm run dev
+
+# Run the 4-phase deterministic verification gate
+npm run verify
+
+# Build static production artifacts (HTML + Markdown + /llms.txt)
+npm run build
+```
+
+---
+
+## 🛡️ Deterministic Verification Gate (`scripts/verify.mjs`)
+
+This repository enforces an inviolable, cross-platform gate executed via `npm run verify` (or `node scripts/verify.mjs`):
+
+```text
+=== [ Deterministic Verification Gate (Node.js) ] ===
+Platform: win32 | Node: v24.14.0 | Dir: E:\AgenticDocs
+
+[*] Phase 1: Linter & Template Diagnostics... (npx astro check)
+✓ Phase 1 passed
+
+[*] Phase 2: Static Type System Validation... (npx tsc --noEmit)
+✓ Phase 2 passed
+
+[*] Phase 3: Unit & Regression Tests...       (npx vitest run)
+✓ Phase 3 passed
+
+[*] Phase 4: Production Build & Route Gen...  (npx astro build)
+✓ Phase 4 passed
+
+--------------------------------------------------
+ RESULT: ALL PHASES PASSED
+--------------------------------------------------
+```
+
+Any code submitted via Pull Request must pass this gate 100% green.
+
+---
+
+## ✍️ Authoring New Opinion Documents
+
+To add a new opinion or research doc:
+1. Create a markdown file in `src/content/docs/<slug>.md`.
+2. Provide frontmatter matching the schema defined in `src/content.config.ts`:
+
+```yaml
+---
+title: "Your Opinion Title"
+description: "A 1-2 sentence summary of what this document covers."
+category: "design" # 'design' | 'architecture' | 'agents' | 'systems'
+tags: ["tui", "tokens", "patterns"]
+publishedDate: "2026-10-19"
+agentRulesSummary: "1. Explicit rule one. 2. Explicit rule two."
+---
+
+Your markdown essay and guidelines here...
+```
+
+3. Run `npm run verify` to confirm valid types and static route generation.
 
 ---
 
@@ -48,64 +134,43 @@ The agent will:
 │   ├── pr-reviewer.md                 # Rules & rubric for PR Review agents
 │   ├── code-implementer.md            # TDD & implementation guidelines
 │   └── architect.md                   # Architecture & ADR review guidelines
-├── .cursor/rules/                     # IDE-specific pointers
-│   └── 00-agent-core.mdc              # Points Cursor to AGENTS.md
-├── .github/
-│   ├── copilot-instructions.md        # Points Copilot to AGENTS.md
-│   ├── PULL_REQUEST_TEMPLATE.md       # PR template with agent validation gates
-│   ├── ISSUE_TEMPLATE/feature_spec.md # Feature spec issue starter
-│   └── workflows/ci.yml               # Auto-detecting multi-stack CI gate
 ├── docs/
 │   ├── adr/                           # Architectural Decision Records (MADR)
 │   │   ├── 0001-record-architecture-decisions.md
-│   │   ├── README.md                  # Index of ADRs
-│   │   └── template.md                # Markdown ADR template
-│   ├── architecture/                  # High-level architecture & module boundaries
-│   │   └── overview.md
-│   └── workflows/                     # Human-in-the-loop workflows
-│       └── agentic-sdlc.md
-├── specs/                             # Spec-Driven Development workspace
-│   ├── _template/                     # Master templates
-│   │   ├── spec.md                    # Business intent & acceptance criteria
-│   │   ├── plan.md                    # Architecture plan & touched files
-│   │   └── tasks.md                   # Atomic checklist with TDD checks
-│   ├── active/                        # Currently active feature spec
-│   └── archive/                       # Historical completed specs
+│   │   ├── 0002-technology-stack.md   # Astro 5 + Svelte 5 + Static Edge
+│   │   └── README.md
+│   └── architecture/
+│       └── overview.md                # System context, module rules, tech stack
 ├── scripts/
-│   ├── verify.ps1                     # PowerShell deterministic test/lint/type gate
-│   ├── verify.sh                      # Bash deterministic test/lint/type gate
-│   └── bootstrap.ps1                  # Interactive stack switcher
+│   ├── verify.mjs                     # Cross-platform Node verification runner
+│   ├── verify.ps1                     # PowerShell delegation shim
+│   └── verify.sh                      # Bash delegation shim
+├── src/
+│   ├── components/
+│   │   └── ThemeToggle.svelte         # Svelte 5 theme switcher island
+│   ├── content/
+│   │   └── docs/                      # Research & opinion markdown files
+│   │       └── visual-aesthetic.md
+│   ├── layouts/
+│   │   └── BaseLayout.astro           # Base layout with theme & agent meta tags
+│   ├── pages/
+│   │   ├── index.astro                # Landing page & console box
+│   │   ├── llms.txt.ts                # Auto-generates /llms.txt at build time
+│   │   └── docs/
+│   │       ├── [...slug].astro        # Interactive reader
+│   │       └── [...slug].md.ts        # Raw markdown serving endpoint
+│   ├── styles/
+│   │   └── global.css                 # Tailwind v4 & tactile/OSL color ramps
+│   └── content.config.ts              # Zod collection schema
+├── test/
+│   └── llms.test.ts                   # Vitest suite
 ├── AGENTS.md                          # Universal Root Agent Contract (SSOT)
-├── CLAUDE.md                          # Points Claude Code to AGENTS.md
-├── .gitignore                         # Comprehensive polyglot gitignore
-└── README.md                          # This documentation
+├── CLAUDE.md                          # Claude Code entry point
+└── astro.config.mjs                   # Astro configuration with Svelte & Tailwind
 ```
 
 ---
 
-## 🔄 Daily Workflow with Agents (Spec-Driven SDLC)
-
-```
-1. Specify              2. Plan                 3. Implement (TDD)      4. Deterministic Gate     5. Review & Merge
-(Human / spec.md) ──▶  (Agent / plan.md) ──▶   (Agent / tasks.md) ──▶  (./scripts/verify.*) ──▶  (.agents/pr-reviewer.md)
-```
-
-1. **Specify**: Copy `specs/_template/` to `specs/active/`. Define what you want in `spec.md`.
-2. **Plan**: Ask your agent: *"Read `specs/active/spec.md` and draft `plan.md` and `tasks.md`."*
-3. **Approve**: Review the plan to verify there is no over-engineering or unwanted dependencies.
-4. **Implement**: Tell the agent: *"Work through `tasks.md` using TDD. Run `./scripts/verify.ps1` after each task."*
-5. **Review**: Ask the PR review agent: *"Evaluate the git diff against `specs/active/spec.md` following `.agents/pr-reviewer.md`."*
-6. **Merge & Archive**: Merge the code and move `specs/active/` to `specs/archive/YYYY-MM-feature-name/`.
-
----
-
-## 🛡️ Supported Technology Stacks
-
-| Ecosystem | Primary Tools | Full Verify Command |
-| :--- | :--- | :--- |
-| **Next.js** | Next.js 15, TypeScript, Tailwind, Vitest | `pnpm lint && pnpm typecheck && pnpm test` |
-| **Vue.js** | Vue 3, Vite, TypeScript, Vitest | `pnpm lint && pnpm typecheck && pnpm test` |
-| **Svelte.js** | SvelteKit 2, Vite, TypeScript, Vitest | `pnpm check && pnpm lint && pnpm test` |
-| **C# (.NET)** | .NET 9/8, xUnit, C# 13, dotnet CLI | `dotnet format --verify-no-changes && dotnet test` |
-| **Python** | Python 3.12+, uv, ruff, pytest, mypy | `uv run ruff check . && uv run mypy . && uv run pytest` |
-| **Go** | Go 1.23+, golangci-lint, standard tests | `golangci-lint run && go test -race ./...` |
+## 🔗 Related Work & Inspirations
+* [tomasmed.dev](https://tomasmed.dev) — Personal site & The Bot Wall
+* [Centaur Games](https://centaur.tomasmed.dev) — Sovereign Operator Trials

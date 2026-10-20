@@ -10,6 +10,8 @@
 * **Ecosystem**: `Astro 5 (TypeScript) + Svelte 5 + Tailwind v4`
 * **Primary Language**: `TypeScript`
 * **Package / Build Tool**: `npm`
+* **Hosting Target**: Vercel Edge / Standalone Docker Container
+* **Domain**: `docs.tomasmed.dev`
 
 ---
 
@@ -19,12 +21,13 @@ Agents must **never guess commands**. Use the exact CLI invocations below:
 
 | Action | Command (PowerShell) | Command (Bash / POSIX) | Description |
 | :--- | :--- | :--- | :--- |
-| **Full Verify** | `npm run verify` | `npm run verify` | **Runs lint + types + tests in one gate.** |
-| **Build** | `npm run build` | `npm run build` | Compiles or bundles the application |
-| **Test All** | `npm test` | `npm test` | Executes the complete test suite |
+| **Full Verify** | `npm run verify` | `npm run verify` | **Runs lint + types + tests + build in one gate.** |
+| **Dev Server** | `npm run dev` | `npm run dev` | Starts local dev server at `http://localhost:4321` |
+| **Build** | `npm run build` | `npm run build` | Compiles static site, `/llms.txt`, and `.md` routes |
+| **Test All** | `npm test` | `npm test` | Executes the complete Vitest test suite |
 | **Test Single** | `npm test -- <path>` | `npm test -- <path>` | Run a specific test file or filter |
-| **Lint Check** | `npm run lint` | `npm run lint` | Checks code style without mutating |
-| **Format / Fix** | `npm run fix` | `npm run fix` | Automatically fixes formatting & linter issues |
+| **Lint Check** | `npm run lint` | `npm run lint` | Runs `astro check` diagnostics without mutating |
+| **Format / Fix** | `npm run fix` | `npm run fix` | Runs `astro check` verification |
 
 ---
 
@@ -35,14 +38,14 @@ Agents must **never guess commands**. Use the exact CLI invocations below:
    * If verification fails, inspect the stderr, fix the issue, and rerun until 100% green.
 
 2. **No Hallucinated Dependencies**:
-   * Do not add external packages or libraries to package manifests (`package.json`, `.csproj`, `pyproject.toml`, `go.mod`) without explicit user consent or an approved Architecture Decision Record in `docs/adr/`.
+   * Do not add external packages or libraries to `package.json` without explicit user consent or an approved Architecture Decision Record in `docs/adr/`.
 
 3. **No Editing Generated / Protected Files**:
-   * Do not edit lockfiles (`pnpm-lock.yaml`, `package-lock.json`, `poetry.lock`, `uv.lock`, `go.sum`) manually.
-   * Do not touch build output directories (`dist/`, `build/`, `bin/`, `obj/`, `.next/`).
+   * Do not edit lockfiles (`package-lock.json`) manually.
+   * Do not touch build output directories (`dist/`, `.astro/`).
 
 4. **Preserve Architecture & ADRs**:
-   * Check `docs/adr/` before introducing any new architectural pattern, database connection, or external service abstraction.
+   * Check `docs/adr/` before introducing any new architectural pattern or external integration.
    * Follow the module boundaries defined in `docs/architecture/overview.md`.
 
 5. **Test Discipline (No Lazy Asserts)**:
@@ -50,7 +53,37 @@ Agents must **never guess commands**. Use the exact CLI invocations below:
 
 ---
 
-## 4. Spec-Driven Development (SDD) Workflow
+## 4. Agentic Docs Domain Rules & Architecture
+
+1. **Dual-Persona Content Serving**:
+   * Every research/opinion piece lives in `src/content/docs/<slug>.md`.
+   * The system automatically generates both:
+     - **Human Reader**: Interactive view with tactile typography at `/docs/<slug>`.
+     - **Agent Raw Markdown**: Pristine markdown with preserved YAML frontmatter at `/docs/<slug>.md`.
+     - **Agent Discovery Index**: Standardized `/llms.txt` at the root compiled at build time.
+
+2. **Content Collection Schema Enforced**:
+   * Every document in `src/content/docs/` must satisfy the Zod schema in `src/content.config.ts`:
+     - `title`: Clear human-readable title.
+     - `description`: 1–2 sentence summary.
+     - `category`: `'design' | 'architecture' | 'agents' | 'systems'`.
+     - `tags`: Array of string descriptors.
+     - `agentRulesSummary`: Explicit, numbered system directives for LLM consumption.
+
+3. **Visual Aesthetic Guardrails**:
+   * Adhere strictly to the design principles established in `src/content/docs/visual-aesthetic.md`:
+     - **Mother Color**: Always use a shared 5–15% atmospheric undertone across neutral ramps; never use raw `#000000` or `#ffffff`.
+     - **70/20/10 Hierarchy**: 70% dark/receding canvas, 20% readable midtones/containers, 10% peak focal specular/accents.
+     - **Glazing over Wireframes**: Separate containers using subtle surface value stepping (3–6%) and breathing room rather than 4-sided wireframe borders.
+     - **Directional NMM Contrast**: Differentiate card edges with brighter top/left catch-lights and recessed darker bottoms.
+
+4. **Islands Architecture**:
+   * Markdown documentation pages must remain zero-JS static HTML by default.
+   * Interactive components (theme switchers, TUI simulators, palette pickers) must be isolated Svelte 5 components using runes (`$state`) and hydrated via `client:load` or `client:visible`.
+
+---
+
+## 5. Spec-Driven Development (SDD) Workflow
 
 For non-trivial features, avoid conversational "vibe coding". Follow the 4-stage pipeline:
 
@@ -62,24 +95,20 @@ specs/active/spec.md  ──▶  specs/active/plan.md  ──▶  specs/active/t
 1. **Specify (`spec.md`)**: Define user stories, functional requirements, and edge cases.
 2. **Plan (`plan.md`)**: Outline technical design, files to create/touch, and potential failure modes.
 3. **Tasks (`tasks.md`)**: Break the plan into numbered, atomically testable micro-tasks (`[ ] 1. ...`).
-4. **Execute**: Work through one task at a time, checking boxes (`[x]`) only after verifying changes.
-
-See `specs/README.md` for detailed instructions and templates.
+4. **Execute**: Work through one task at a time, checking boxes (`[x]`) only after verifying changes with `npm run verify`.
 
 ---
 
-## 5. Specialized Agent Personas & In-Repo Delegations
-
-When operating in specific roles, read and follow the dedicated instructions:
+## 6. Specialized Agent Personas & In-Repo Delegations
 
 * **PR Review Agent**: See `.agents/pr-reviewer.md` before commenting on pull requests or diffs.
 * **Core Coding & TDD Agent**: See `.agents/code-implementer.md` for implementation and test writing rules.
 * **Architectural Review Agent**: See `.agents/architect.md` for evaluating structural changes and ADRs.
-* **Project Bootstrap Agent**: See `.agents/bootstrap.md` for initial repository setup and stack configuration.
+* **Project Bootstrap Agent**: See `.agents/bootstrap.md` for bootstrap history and stack details.
 
 ---
 
-## 6. Commit Style
+## 7. Commit Style
 
 All git commits must follow the **Conventional Commits** specification:
 * `feat(scope): add user authentication endpoint`

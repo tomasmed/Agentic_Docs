@@ -12,4 +12,4 @@ When proposing an architectural change or introducing a new package/service:
 | ID | Title | Status | Date |
 | :--- | :--- | :--- | :--- |
 | [0001](./0001-record-architecture-decisions.md) | Record Architecture Decisions | Accepted | 2026-10-07 |
-| *0002* | *[Technology Stack & Baseline Tooling]* | *Pending Bootstrap* | *Commit 1* |
+| [0002](./0002-technology-stack.md) | Adopt Astro 5 (TypeScript), Svelte 5 Islands, and Static Edge Architecture | Accepted | 2026-10-19 |
