@@ -51,6 +51,12 @@ Agents must **never guess commands**. Use the exact CLI invocations below:
 5. **Test Discipline (No Lazy Asserts)**:
    * Unit tests must test genuine business logic and edge cases. Never write trivial asserts like `expect(true).toBe(true)` or empty test stubs to bypass verification gates.
 
+6. **Feature Branches & PR Gate (No Direct Master Pushes)**:
+   * **NEVER push commits directly to `master` (or `main`).**
+   * All development and agent tasks must occur on a dedicated feature or bugfix branch (e.g. `feat/<name>` or `fix/<name>`).
+   * Pushing to remote is allowed only on the feature branch.
+   * Work must be submitted via GitHub Pull Request (`gh pr create`) against `master` for human verification and approval prior to merging.
+
 ---
 
 ## 4. Agentic Docs Domain Rules & Architecture

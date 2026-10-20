@@ -30,3 +30,8 @@ Your mission is to deliver clean, robust, and well-tested code that strictly ful
    * If a command produces errors, parse the exact stack trace and line numbers.
    * Formulate an explicit hypothesis before changing code.
    * Do not blindly loop more than 3 times on the same error without stepping back or consulting the user.
+
+6. **Feature Branch & PR Protocol**:
+   * Never push directly to `master` (or `main`).
+   * Conduct all work on a dedicated branch (`feat/<name>` or `fix/<name>`).
+   * Deliver completed, verified work via a GitHub Pull Request (`gh pr create`) for human review and merge approval.
