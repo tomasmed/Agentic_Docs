@@ -51,4 +51,16 @@ describe('Agentic Documentation Contract', () => {
     const componentPath = path.resolve(__dirname, '../src/components/PaletteGenerator.svelte');
     expect(fs.existsSync(componentPath)).toBe(true);
   });
+
+  it('contains the ci-code-reviewer.md document with agents category and rules', () => {
+    const filePath = path.join(docsDir, 'ci-code-reviewer.md');
+    expect(fs.existsSync(filePath)).toBe(true);
+
+    const content = fs.readFileSync(filePath, 'utf-8');
+    expect(content).toContain('category: "agents"');
+    expect(content).toContain('agentRulesSummary:');
+    expect(content).toContain('Fail-open stance');
+    expect(content).toContain('JlightCalendar');
+    expect(content).toContain('gemini/gemini-3.8-flash');
+  });
 });
